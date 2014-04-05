@@ -12,7 +12,9 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 
 // Controllers
 $app->get('/', function () use ($app) {
-    return 'Homepage';
+    return $app['twig']->render('index.twig',array(
+    'welcome' => $welcome, // not set yet
+    ));
 }
 );
 
@@ -22,7 +24,7 @@ $app->get('/hello/{name}', function ($name) use ($app) {
 );
 
 $app->get('/hellotwig/{name}', function ($name) use ($app) {
-    return $app['twig']->render('hello.twig', array(
+    return $app['twig']->render('hello.html', array(
     		'name' => $name,
     	));
 });
