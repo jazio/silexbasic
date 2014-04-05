@@ -59,12 +59,14 @@ $app->get('/hellotwig/{name}', function ($name) use ($app) {
 /* The below array could be fetched from a json file or database*/
 $blogPosts = array(
     1 => array(
+        'bid' => '1',
         'date'   => '03-03-2014',
         'author' => 'Andrei Plesu',
         'title'  => 'Despre frumusetea uitata a vietii',
         'body'   => 'Lore ipsum1',
         ),
     2 => array(
+        'bid' => '2',
         'date'   => '02-04-2014',
         'author' => 'Gabriel Liiceanu',
         'title'  => 'Jurnal de la Paltinis',
@@ -72,14 +74,10 @@ $blogPosts = array(
         ),
     );
 
-$app->get('/blog', function () use ($blogPosts) {
-    $output = '';
-    foreach ($blogPosts as $blog) {
-        $output .= '<h2>'.$blog['title'].'</h2>';
-        $output .= '<i>'.$blog['author'].'</i>'.' ' .'<small>'.$blog['date'].'</small>';
-        $output .= '<p>'.$blog['body'].'</p>';
-    }
-    return $output;
+$app->get('/blog', function () use ($blogPosts, $app) {
+    return $app['twig']->render('blog.twig', array(
+            'posts' => $blogPosts,
+        ));   
 // Optional nameroutes to be used with UrlGenerator Provider 
 })->bind('blog');
 // Blog Post Overview with Twig Template

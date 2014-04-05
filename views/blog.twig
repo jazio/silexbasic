@@ -2,4 +2,15 @@
 
 {% block content %}
 
-{% endblock %}r
+{% if posts %}
+    {% for post in posts %}
+    {# {{dump(post)}} #}
+        <h2><a href='{{ app.request.baseUrl }}/blog/{{post['bid']}}'>{{ post['title'] }}</a></h2>
+        <small>{{ post['author'] }}</small>
+        <p>{{ post['body'] }}</p>
+    {% endfor %}
+{% else %}
+    <p>No posts found.</p>
+{% endif %}
+
+{% endblock %}
