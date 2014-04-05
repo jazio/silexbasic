@@ -6,6 +6,13 @@
 /*============ Dependencies ============*/
 require_once __DIR__.'/../vendor/autoload.php';
 
+// Exceptions
+use Symfony\Component\HttpFoundation\Response;
+// path() usage in twig
+use Silex\Provider\TwigServiceProvider;
+use Silex\Provider\UrlGeneratorServiceProvider;
+
+// Application Object
 $app = new Silex\Application();
 
 $app['debug'] = true;
@@ -13,17 +20,27 @@ $app['debug'] = true;
 /*============ Register Service Providers ============*/
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__.'/../views',
+    'twig.class_path'   => __DIR__.'/vendor/twig/lib',
 ));
+
+$app->register(new UrlGeneratorServiceProvider());
+
+
+/*============ Layout ============*/
+// Aparently is optional
+$app->before(function () use ($app) {
+    $app['twig']->addGlobal('layout', null);
+    $app['twig']->addGlobal('layout', $app['twig']->loadTemplate('layout.twig'));
+});
 
 /*============ Controllers ============*/
 
 // Homepage
 $app->get('/', function () use ($app) {
     return $app['twig']->render('index.twig',array(
-    'welcome' => $welcome, // not set yet
-    ));
-}
-);
+    'welcome' => 'Welcome to my homepage', // not set yet
+    )); 
+})->bind('homepage');
 
 // Hello without template
 $app->get('/hello/{name}', function ($name) use ($app) {
@@ -63,23 +80,28 @@ $app->get('/blog', function () use ($blogPosts) {
         $output .= '<p>'.$blog['body'].'</p>';
     }
     return $output;
-}
-);
+// Optional nameroutes to be used with UrlGenerator Provider 
+})->bind('blog');
 // Blog Post Overview with Twig Template
 
 $app->get('/blog/{id}', function ($id) use ($blogPosts, $app) {
-    return $app['twig']->render('blog.twig',array(
+    return $app['twig']->render('blogpost.twig',array(
         'title' => $blogPosts[$id]['title'],
         'author' => $blogPosts[$id]['author'],
         'date' => $blogPosts[$id]['date'],
         'body' => $blogPosts[$id]['body'],
         ));
     
-}
-);
+})->bind('blogpost');
+
+// Error Handlers
+$app->error(function (\Exception $e) use ($app) {
+    return new Response('<h2>Wooops, page not found!</h2>');
+});
 //var_dump($app);
 //@todo
-///blog/id
+
 //header redirect
-//404
+//create a menu
+//yml for blog posts, see translation
 $app->run();
