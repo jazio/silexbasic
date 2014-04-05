@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="">
 	<head>
-		<title>Title Page</title>
+		<title>Demo</title>
 		<meta charset="UTF-8">
-		<meta name=description content="">
-		<meta name=viewport content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<!-- Bootstrap CSS -->
 		<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
@@ -13,6 +13,7 @@
 		<h1 class="text-center">Demo site</h1>
 		 <!-- Navigation
         ================================================== -->
+        {% set active = active|default(null) %}
         <div class="navbar-wrapper">
           <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
             <div class="container">
@@ -30,19 +31,29 @@
 
               <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav pull-right">
-                  <li class="active"><a href="{{ path('homepage') }}"><span class="glyphicon glyphicon-home"></span></a></li>
-                  <li><a href="#works">Works</a></li>
-                  <li><a href="#gallery">Gallery</a></li>
-                  <li><a href="{{ path('blog') }}">Blog</a></li>
-                  <li><a href="#about">About</a></li>
-                  <li><a href="#contact">Contact</a></li>
+                  <li {% if 'homepage' == active %}class="active"{% endif %}><a href="{{ path('homepage') }}"><span class="glyphicon glyphicon-home"></span></a></li>
+                  <li {% if 'works' == active %}class="active"{% endif %}><a href="{{ path('works') }}">Works</a></li>
+                  <li {% if 'blog' == active %}class="active"{% endif %}><a href="{{ path('blog') }}">Blog</a></li>
+                  <li {% if 'about' == active %}class="active"{% endif %}><a href="{{ path('about') }}">About</a></li>
+                  <li {% if 'contact' == active %}class="active"{% endif %}><a href="{{ path('contact') }}">Contact</a></li>
                 </ul>
               </div>
 
             </div>
           </nav>
         </div>
-		{% block content %}{% endblock %}
+
+          <!-- About
+        ================================================== -->
+        <div class="row">
+          <div class="container">
+            <div class="col-md-12">
+            {% block content %}{% endblock %}
+            </div>
+          </div>
+        </div>
+
+
 		<!-- jQuery -->
 		<script src="//code.jquery.com/jquery.js"></script>
 		<!-- Bootstrap JavaScript -->

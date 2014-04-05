@@ -81,18 +81,39 @@ $app->get('/blog', function () use ($blogPosts, $app) {
         ));   
 // Optional nameroutes to be used with UrlGenerator Provider 
 })->bind('blog');
-// Blog Post Overview with Twig Template
 
+// Blog Post Overview with Twig Template
 $app->get('/blog/{id}', function ($id) use ($blogPosts, $app) {
     return $app['twig']->render('blogpost.twig',array(
-        'title' => $blogPosts[$id]['title'],
+        'title'  => $blogPosts[$id]['title'],
         'author' => $blogPosts[$id]['author'],
-        'date' => $blogPosts[$id]['date'],
-        'body' => $blogPosts[$id]['body'],
+        'date'   => $blogPosts[$id]['date'],
+        'body'   => $blogPosts[$id]['body'],
         ));
     
 })->bind('blogpost');
 
+// Works
+$app->get('/works', function () use ($app) {
+    return $app['twig']->render('works.twig',array(
+        'pageTitle' => 'Works',
+        ));
+})->bind('works');
+
+// Contact
+$app->get('/about', function () use ($app) {
+    return $app['twig']->render('about.twig',array(
+        'pageTitle' => 'About',
+        ));
+})->bind('about');
+
+// Contact
+$app->get('/contact', function () use ($app) {
+    return $app['twig']->render('contact.twig',array(
+        'pageTitle' => 'Contact',
+        ));
+})->bind('contact');
+// Contact
 // Error Handlers
 $app->error(function (\Exception $e) use ($app) {
     return new Response('<h2>Wooops, page not found!</h2>');
