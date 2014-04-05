@@ -1,4 +1,5 @@
 <?php
+ini_set('display_errors', 0);
 /**
  * author: Ovi Farcas
  * website: http://www.jazio.net
