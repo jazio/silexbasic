@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\Response;
 // path() usage in twig
 use Silex\Provider\TwigServiceProvider;
 use Silex\Provider\UrlGeneratorServiceProvider;
+// configuration, data storage and parsing
+use Symfony\Component\Yaml\Yaml;
 
 // Application Object
 $app = new Silex\Application();
@@ -102,8 +104,15 @@ $app->get('/works', function () use ($app) {
 
 // Contact
 $app->get('/about', function () use ($app) {
+    try {
+       $yamlQuestions = file_get_contents(__DIR__.'/data.yml');
+       $questions = Yaml::parse($yamlQuestions);
+    } catch (Exception $e) {
+        return $e;
+    }
     return $app['twig']->render('about.twig',array(
         'pageTitle' => 'About',
+        'questions' => $questions,
         ));
 })->bind('about');
 

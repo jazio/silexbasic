@@ -2,4 +2,16 @@
 {% set active = 'about' %}
 {% block content %}
     <h1>{{ pageTitle }}</h1>
+    <ul>
+    {% for question in questions %}
+    {{ dump(question) }}
+         <li>
+            <a href="{{ app.url_generator.generate("about", {
+                "id": question.id,
+            }) }}">
+                {{ question.question }}
+            </a>
+        </li>
+    {% endfor %}
+    </ul>
 {% endblock %}
