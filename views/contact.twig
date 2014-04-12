@@ -1,5 +1,11 @@
 {% extends 'layout.twig' %}
 {% set active = 'contact' %}
+
+{% block title %}Contact{% endblock %}
+{% block description %}Personalized description{% endblock %}
+{% block keywords %}web developer, experienced, contact me, contact, send, message, inbox, ideas, comments, questions, answer{% endblock %}
+
+
 {% block content %}
     <h1>{{ pageTitle }}</h1>
     <form method="post" action="{{ app.url_generator.generate('contact') }}" enctype="application/x-www-form-urlencoded">
@@ -10,5 +16,7 @@
       {{ form_row(form.email) }}
         {{ form_row(form.message) }}
     </form>
-    <input type="submit" name="submit" />
+
+    <input type="submit" value="Send message" id="send" name="send">
+    {{ form_rest(form) }}
 {% endblock %}
