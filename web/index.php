@@ -8,12 +8,18 @@ ini_set('display_errors', 0);
 require_once __DIR__.'/../vendor/autoload.php';
 
 // Exceptions
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 // path() usage in twig
 use Silex\Provider\TwigServiceProvider;
 use Silex\Provider\UrlGeneratorServiceProvider;
 // configuration, data storage and parsing
 use Symfony\Component\Yaml\Yaml;
+// 
+use Silex\Provider\FormServiceProvider;
+// mandatory for using forms
+use Silex\Provider\TranslationServiceProvider;
+
 
 // Application Object
 $app = new Silex\Application();
@@ -27,8 +33,10 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 ));
 
 $app->register(new UrlGeneratorServiceProvider());
-
-
+$app->register(new FormServiceProvider());
+$app->register(new TranslationServiceProvider(), array(
+    'translator.messages' => array(),
+));
 /*============ Layout ============*/
 // Aparently is optional
 $app->before(function () use ($app) {
@@ -117,9 +125,29 @@ $app->get('/about', function () use ($app) {
 })->bind('about');
 
 // Contact
-$app->get('/contact', function () use ($app) {
+$app->match('/contact', function (Request $request) use ($app) {
+    try {
+        $data = array(
+            'name' => 'Your name', 
+            'email' => 'Your email',
+            'message' => 'Message',
+            );
+
+    $form = $app['form.factory']->createBuilder('form', $data)
+        ->add('name', 'text')
+        ->add('email', 'email')
+        ->add('message', 'textarea')
+        ->getForm();
+    $form->handleRequest($request);
+        
+    } catch (Exception $e) {
+        return '<pre>'.$e.'</pre>';
+    }
+    
+
     return $app['twig']->render('contact.twig',array(
         'pageTitle' => 'Contact',
+        'form' => $form->createView()
         ));
 })->bind('contact');
 // Contact
