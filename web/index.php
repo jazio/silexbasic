@@ -139,7 +139,6 @@ $app->match('/contact', function (Request $request) use ($app) {
         ->add('message', 'textarea')
         ->getForm();
     $form->handleRequest($request);
-        
     } catch (Exception $e) {
         return '<pre>'.$e.'</pre>';
     }
