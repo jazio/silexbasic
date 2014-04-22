@@ -10,16 +10,14 @@ require_once __DIR__.'/../vendor/autoload.php';
 // Exceptions
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-// path() usage in twig
+// Read Yaml data files
+use Symfony\Component\Yaml\Yaml;
+// Render templates
 use Silex\Provider\TwigServiceProvider;
 use Silex\Provider\UrlGeneratorServiceProvider;
-// configuration, data storage and parsing
-use Symfony\Component\Yaml\Yaml;
-// 
-use Silex\Provider\FormServiceProvider;
-// mandatory for using forms
-use Silex\Provider\TranslationServiceProvider;
 
+use Silex\Provider\TranslationServiceProvider;
+use Silex\Provider\FormServiceProvider;
 
 // Application Object
 $app = new Silex\Application();
@@ -126,29 +124,50 @@ $app->get('/about', function () use ($app) {
 
 // Contact
 $app->match('/contact', function (Request $request) use ($app) {
-    try {
-        $data = array(
-            'name' => 'Your name', 
-            'email' => 'Your email',
-            'message' => 'Message',
-            );
+
+    $data = array(
+           'name' => 'Your name', 
+           'email' => 'ovidiufarcas@gmail.com',
+           'message' => 'Message',
+           );
+        
 
     $form = $app['form.factory']->createBuilder('form', $data)
         ->add('name', 'text')
         ->add('email', 'email')
         ->add('message', 'textarea')
         ->getForm();
-    $form->handleRequest($request);
-    } catch (Exception $e) {
-        return '<pre>'.$e.'</pre>';
-    }
+
+    //$request = $app['request'];
+$formStatus = 'Please fill up the form 0';
+    if ($request->isMethod('POST'))
+    {
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted())
+        {
+        if ($form->isValid()) 
+            {
+            $data = $form->getData();
+            $bgFormStatus = 'bg-success';
+            $formStatus = 'Form is submitted and valid';
+            }
+        }
+        else {
+           $bgFormStatus = 'bg-info';
+           $formStatus = 'Please fill up the form'; 
+        }
+    }    
     
 
     return $app['twig']->render('contact.twig',array(
         'pageTitle' => 'Contact',
-        'form' => $form->createView()
+        'formStatus' => $formStatus,
+        'bgFormStatus' => $bgFormStatus,
+        'form' => $form->createView(),
         ));
-})->bind('contact');
+})
+->bind('contact');
 // Contact
 // Error Handlers
 $app->error(function (\Exception $e) use ($app) {
