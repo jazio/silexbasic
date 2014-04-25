@@ -12,12 +12,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 // Read Yaml data files
 use Symfony\Component\Yaml\Yaml;
-// Render templates
+// Render templates, path translation services
 use Silex\Provider\TwigServiceProvider;
 use Silex\Provider\UrlGeneratorServiceProvider;
-
 use Silex\Provider\TranslationServiceProvider;
+// Forms and validation
 use Silex\Provider\FormServiceProvider;
+use Silex\Provider\ValidatorServiceProvider;
+use Symfony\Component\Validator\Constraints as Assert;
 
 // Application Object
 $app = new Silex\Application();
@@ -32,6 +34,7 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 
 $app->register(new UrlGeneratorServiceProvider());
 $app->register(new FormServiceProvider());
+$app->register(new ValidatorServiceProvider());
 $app->register(new TranslationServiceProvider(), array(
     'translator.messages' => array(),
 ));
@@ -133,8 +136,14 @@ $app->match('/contact', function (Request $request) use ($app) {
         
 
     $form = $app['form.factory']->createBuilder('form', $data)
-        ->add('name', 'text')
-        ->add('email', 'email')
+        ->add('name', 'text', array(
+            'constraints' => array(new Assert\NotBlank(), new Assert\Length(array('min' => 10))),
+            ))
+        ->add('email', 'email', array(
+                    'constraints' => array(new Assert\NotBlank(), new Assert\Email()),
+                    'label'       => 'A custom label : ',
+                    'attr' => array('class' => 'span5', 'placeholder' => 'email constraints')
+                ))
         ->add('message', 'textarea')
         ->getForm();
 

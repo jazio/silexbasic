@@ -1,9 +1,9 @@
 {% extends 'layout.twig' %}
-{% set active = 'contact' %}
+{% set active = 'feedback' %}
 
 {% block title %}{{ pageTitle }}{% endblock %}
 {% block description %}Personalized description{% endblock %}
-{% block keywords %}web developer, experienced, contact me, contact, send, message, inbox, ideas, comments, questions, answer{% endblock %}
+{% block keywords %}web developer, send, message, inbox, ideas, comments, questions, answer{% endblock %}
 
 
 {% block content %}
@@ -13,7 +13,7 @@
 {% if formStatus %}<div class={{ bgFormStatus }}>
 <button class="close">×</button>
 {{ formStatus }}</div>{% endif %}
-    <form method="post" action="{{ app.url_generator.generate('contact') }}"  role="form">
+    <form method="post" action="{{ app.url_generator.generate('feedback') }}" role="form">
 
 
       {{ form_errors(form) }}
@@ -29,7 +29,7 @@
   <div class="form-group">
    {{ form_row(form.message) }}
 </div>
-<input type="submit" class="btn btn-primary" value="Send message" id="submit" name="submit">
+<input type="submit" class="btn btn-primary" value="Submit form" id="submit" name="submit">
 {{ form_rest(form) }}
 </form>
 </div>
