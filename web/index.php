@@ -204,7 +204,7 @@ $app->match('/contact', function (Request $request) use ($app) {
         ))
     ->add('email', 'email', array(
         'constraints' => array(new Assert\NotBlank(), new Assert\Email()),
-        'label'       => 'A custom label : ',
+        'label'       => 'A custom label from email : ',
         'attr' => array('class' => 'span5', 'placeholder' => 'email constraints')
         ))
     ->add('subject', 'text', array(
@@ -234,10 +234,22 @@ $app->match('/contact', function (Request $request) use ($app) {
 
                 // Get form submitted values
                 $fields = $form->getData();
-                var_dump($fields['message']);
-                var_dump($fields['subject']);
-                var_dump($fields['name']);
 
+                    // Create the mail
+    $message = \Swift_Message::newInstance()
+        ->setSubject($fields['subject'])
+        ->setFrom(array('farcaso@gmail.com'))
+        ->setTo($fields['email'])
+        ->setBody($fields['message'], 'text/html')
+    ;
+
+    // @TODO Set headers: From, Reply-To
+
+    // Send the mail
+    $app['mailer']->send($message);
+
+    // @TODO remove to render twig, add a flag OK variable
+    return 'Mail envoyé a ' . $fields['email'];
 
     }
 }
