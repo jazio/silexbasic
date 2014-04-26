@@ -225,17 +225,25 @@ $app->match('/contact', function (Request $request) use ($app) {
         {
             if ($form->isValid()) 
             {
+<<<<<<< HEAD
                 
+=======
+                $data = $form->getData();
+>>>>>>> fcc5656016ada8789e11d1c7a3ed7d0780cafa89
 
 
                 $bgFormStatus = 'bg-success';
                 $formStatus = 'Form is submitted and valid';
+<<<<<<< HEAD
 
                 // Get form submitted values
                 $fields = $form->getData();
                 var_dump($fields['message']);
                 var_dump($fields['subject']);
                 var_dump($fields['name']);
+=======
+                var_dump($request->request);
+>>>>>>> fcc5656016ada8789e11d1c7a3ed7d0780cafa89
 /*
                 $message = \Swift_Message::newInstance()
                 ->setSubject($subject)
