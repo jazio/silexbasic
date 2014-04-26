@@ -1,10 +1,10 @@
 <?php
-ini_set('display_errors', 0);
+
 /**
  * author: Ovi Farcas
  * website: http://www.jazio.net
  */
-/*============ Dependencies ============*/
+/*============ Silex  ============*/
 require_once __DIR__.'/../vendor/autoload.php';
 
 // Exceptions
@@ -20,24 +20,29 @@ use Silex\Provider\TranslationServiceProvider;
 use Silex\Provider\FormServiceProvider;
 use Silex\Provider\ValidatorServiceProvider;
 use Symfony\Component\Validator\Constraints as Assert;
+// Mails
+use Silex\Provider\SwiftmailerServiceProvider;
 
 // Application Object
 $app = new Silex\Application();
 
-$app['debug'] = true;
+// REMOVE ON PRODUCTION
+require __DIR__.'/../config/dev.php';
 
 /*============ Register Service Providers ============*/
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__.'/../views',
     'twig.class_path'   => __DIR__.'/vendor/twig/lib',
-));
+    ));
 
 $app->register(new UrlGeneratorServiceProvider());
 $app->register(new FormServiceProvider());
 $app->register(new ValidatorServiceProvider());
 $app->register(new TranslationServiceProvider(), array(
     'translator.messages' => array(),
-));
+    ));
+
+$app->register(new SwiftmailerServiceProvider());
 /*============ Layout ============*/
 // Aparently is optional
 $app->before(function () use ($app) {
@@ -63,7 +68,7 @@ $app->get('/hello/{name}', function ($name) use ($app) {
 // Hello with template
 $app->get('/hellotwig/{name}', function ($name) use ($app) {
     return $app['twig']->render('hello.html', array(
-            'name' => $name,
+        'name' => $name,
         ));
 });
 
@@ -88,7 +93,7 @@ $blogPosts = array(
 
 $app->get('/blog', function () use ($blogPosts, $app) {
     return $app['twig']->render('blog.twig', array(
-            'posts' => $blogPosts,
+        'posts' => $blogPosts,
         ));   
 // Optional nameroutes to be used with UrlGenerator Provider 
 })->bind('blog');
@@ -114,67 +119,149 @@ $app->get('/works', function () use ($app) {
 // Contact
 $app->get('/about', function () use ($app) {
     try {
-       $yamlQuestions = file_get_contents(__DIR__.'/data.yml');
-       $questions = Yaml::parse($yamlQuestions);
-    } catch (Exception $e) {
-        return $e;
-    }
-    return $app['twig']->render('about.twig',array(
-        'pageTitle' => 'About',
-        'questions' => $questions,
-        ));
+     $yamlQuestions = file_get_contents(__DIR__.'/data.yml');
+     $questions = Yaml::parse($yamlQuestions);
+ } catch (Exception $e) {
+    return $e;
+}
+return $app['twig']->render('about.twig',array(
+    'pageTitle' => 'About',
+    'questions' => $questions,
+    ));
 })->bind('about');
 
 // Contact
-$app->match('/contact', function (Request $request) use ($app) {
+$app->match('/feedback', function (Request $request) use ($app) {
 
     $data = array(
-           'name' => 'Your name', 
-           'email' => 'ovidiufarcas@gmail.com',
-           'message' => 'Message',
-           );
-        
+     'name' => 'Your name',
+     'email' => 'your@email.com',
+     'message' => 'Message',
+     );
+
 
     $form = $app['form.factory']->createBuilder('form', $data)
-        ->add('name', 'text', array(
-            'constraints' => array(new Assert\NotBlank(), new Assert\Length(array('min' => 10))),
-            ))
-        ->add('email', 'email', array(
-                    'constraints' => array(new Assert\NotBlank(), new Assert\Email()),
-                    'label'       => 'A custom label : ',
-                    'attr' => array('class' => 'span5', 'placeholder' => 'email constraints')
-                ))
-        ->add('message', 'textarea')
-        ->getForm();
+    ->add('name', 'text', array(
+        'constraints' => array(new Assert\NotBlank(), new Assert\Length(array('min' => 10))),
+        ))
+    ->add('email', 'email', array(
+        'constraints' => array(new Assert\NotBlank(), new Assert\Email()),
+        'label'       => 'A custom label : ',
+        'attr' => array('class' => 'span5', 'placeholder' => 'email constraints')
+        ))
+    ->add('message', 'textarea')
+    ->getForm();
 
     //$request = $app['request'];
-$formStatus = 'Please fill up the form 0';
+    $formStatus = 'Please fill up the form 0';
     if ($request->isMethod('POST'))
     {
         $form->handleRequest($request);
         
         if ($form->isSubmitted())
         {
-        if ($form->isValid()) 
+            if ($form->isValid()) 
             {
-            $data = $form->getData();
-            $bgFormStatus = 'bg-success';
-            $formStatus = 'Form is submitted and valid';
+                $data = $form->getData();
+                $bgFormStatus = 'bg-success';
+                $formStatus = 'Form is submitted and valid';
             }
         }
         else {
-           $bgFormStatus = 'bg-info';
-           $formStatus = 'Please fill up the form'; 
-        }
-    }    
-    
+         $bgFormStatus = 'bg-info';
+         $formStatus = 'Please fill up the form'; 
+     }
+ }    
 
-    return $app['twig']->render('contact.twig',array(
-        'pageTitle' => 'Contact',
-        'formStatus' => $formStatus,
-        'bgFormStatus' => $bgFormStatus,
-        'form' => $form->createView(),
-        ));
+
+ return $app['twig']->render('feedback.twig',array(
+    'pageTitle' => 'Feedback',
+    'formStatus' => $formStatus,
+    'bgFormStatus' => $bgFormStatus,
+    'form' => $form->createView(),
+    ));
+})
+->bind('feedback');
+
+
+
+
+
+// Contact
+$app->match('/contact', function (Request $request) use ($app) {
+
+    $data = array(
+     'name' => 'Your name',
+     'subject' => 'Subject here', 
+     'email' => 'ovidiufarcas@gmail.com',
+     'message' => 'Message',
+     );
+
+
+    $form = $app['form.factory']->createBuilder('form', $data)
+    ->add('name', 'text', array(
+        'constraints' => array(new Assert\NotBlank(), new Assert\Length(array('min' => 10))),
+        ))
+    ->add('email', 'email', array(
+        'constraints' => array(new Assert\NotBlank(), new Assert\Email()),
+        'label'       => 'A custom label : ',
+        'attr' => array('class' => 'span5', 'placeholder' => 'email constraints')
+        ))
+    ->add('subject', 'text', array(
+        'constraints' => array(new Assert\NotBlank)
+        ))
+    ->add('message', 'textarea', array(
+        'constraints' => array(new Assert\NotBlank)
+        ))
+    ->getForm();
+
+    $request = $app['request'];
+    $formStatus = 'Please fill up the form 0';
+    if ($request->isMethod('POST'))
+    {
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted())
+        {
+            if ($form->isValid()) 
+            {
+                
+
+
+                $bgFormStatus = 'bg-success';
+                $formStatus = 'Form is submitted and valid';
+
+                // Get form submitted values
+                $fields = $form->getData();
+                var_dump($fields['message']);
+                var_dump($fields['subject']);
+                var_dump($fields['name']);
+/*
+                $message = \Swift_Message::newInstance()
+                ->setSubject($subject)
+                ->setFrom(array('noreply@lephare.com'))
+                ->setTo(array($request->query->get('to')))
+                ->setBody($html, 'text/html')
+                ;
+
+        // Send the mail
+                $app['mailer']->send($message);
+        */
+    }
+}
+else {
+ $bgFormStatus = 'bg-info';
+ $formStatus = 'Please fill up the form'; 
+}
+}    
+
+
+return $app['twig']->render('contact.twig',array(
+    'pageTitle' => 'Contact',
+    'formStatus' => $formStatus,
+    'bgFormStatus' => $bgFormStatus,
+    'form' => $form->createView(),
+    ));
 })
 ->bind('contact');
 // Contact
