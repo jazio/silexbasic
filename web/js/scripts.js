@@ -79,7 +79,7 @@ v. 1.0
     }
 
     //runtime
-    APP.smoothScroll(menu = ".nav a");
+    //APP.smoothScroll(menu = ".nav a");
     $("#back-top").hide();
     APP.backTop();
     APP.modalBox(width = 800, height = 744, speed = 'normal', theme = 'facebook');

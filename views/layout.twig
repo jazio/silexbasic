@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="">
 	<head>
-		<title>Demo</title>
-		<meta charset="UTF-8">
+  <title>Title Page</title>
+  <meta charset="utf-8">
 		<meta name="description" content="{% block description %}Hi, welcome to my site.{% endblock %}">
 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="assets/ico/favicon.png">
 		<!-- Bootstrap CSS -->
 		<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
+      <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="styles/screen.css">
+  <link rel="stylesheet" href="styles/prettyPhoto.css" type="text/css" media="screen" title="prettyPhoto main stylesheet" charset="utf-8" />
 	</head>
 	<body>
-		<h1 class="text-center">Demo site</h1>
 		 <!-- Navigation
         ================================================== -->
         {% set active = active|default(null) %}
@@ -18,7 +22,7 @@
           <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
             <div class="container">
               <div class="navbar-header">
-                <a class="navbar-brand" href="#">.logo</a>
+                <a class="navbar-brand" href="#">Your Logo Here</a>
 
 
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -59,5 +63,11 @@
 		<script src="//code.jquery.com/jquery.js"></script>
 		<!-- Bootstrap JavaScript -->
 		<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+            <script type="text/javascript" src="js/jquery.scrollTo.js"></script>
+        <script type="text/javascript" src="js/jquery.localscroll-1.2.7-min.js"></script>
+        
+        <script src="js/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+        <script type="text/javascript" src="js/scripts.js"></script>
 	</body>
 </html>

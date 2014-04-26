@@ -1,17 +1,26 @@
 {% extends 'layout.twig' %}
 {% set active = 'about' %}
 {% block content %}
-    <h1>{{ pageTitle }}</h1>
-    <ul>
+        <!-- About
+        ================================================== -->
+        <div id="about" class="row">
+          <div class="container">
+            <h2><span class="glyphicon glyphicon-info-sign"></span> {{ pageTitle }}</h2>
+       {{ dump(questions) }}    
     {% for question in questions %}
-    {{ dump(question) }}
-         <li>
-            <a href="{{ app.url_generator.generate("about", {
+    
+            <div class="col-md-2">
+             <img src="img/placeholder.jpg" alt="" width="140px" height="140px" class="img-circle"/>
+           </div>
+           <div class="col-md-4">
+                      <a href="{{ app.url_generator.generate("about", {
                 "id": question.id,
             }) }}">
-                {{ question.question }}
-            </a>
-        </li>
-    {% endfor %}
-    </ul>
+            <span>{{ question.question }}</span>
+             </a>
+          </div>
+   {% endfor %}
+
+      </div>
+    </div>
 {% endblock %}
