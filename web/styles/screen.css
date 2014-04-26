@@ -1,0 +1,83 @@
+/* Typo */
+.navbar-brand {
+	font-family: 'Pacifico', cursive;
+	font-size: 120%;
+}
+
+body {
+	font-family: 'Roboto', sans-serif;
+	font-size: 170%;
+
+}
+h2 {
+	margin: 0 0 1em 0;
+}
+
+p {
+	line-height: 1.5em;
+}
+
+.glyphicon {font-size: 60%;}
+
+/* Layout */
+
+body {
+	margin-top: 50px;
+}
+
+.carousel-inner {
+	background:url(../img/tweed.png) repeat;
+	margin-bottom: 15px;
+}
+.carousel-inner img {
+	margin:auto;
+
+}
+
+#gallery, #about, #footer {
+	background: url(../img/tweed.png) repeat;
+	color: white;
+}
+
+.row {
+	padding: 5em 0;
+	
+}
+
+.blog-date{
+	color: #A5A5A5;
+	font-size: 14px;
+}
+
+#gallery img {
+	margin: 0 0 1.5em 0;
+}
+
+
+/*
+Back to top button 
+*/
+#back-top {
+	position: fixed;
+	bottom: 10px;
+    right: 10px;
+}
+#back-top a {
+	width: 50px;
+	height: 40px;
+	display: block;
+	text-align: center;
+	font-size: 300%;
+	text-decoration: none;
+	color: #bbb;
+	background: #777;
+		/* rounded corners */
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+
+}
+#back-top a:hover {
+	color: #000;
+}
+
