@@ -4,12 +4,14 @@ use Silex\Provider\TwigServiceProvider;
 use Silex\Provider\UrlGeneratorServiceProvider;
 use Silex\Provider\TranslationServiceProvider;
 use Silex\Provider\FormServiceProvider;
+use Silex\Provider\HttpCacheServiceProvider;
 use Silex\Provider\ValidatorServiceProvider;
 use Silex\Provider\SwiftmailerServiceProvider;
 
 
 
 // Register Service Providers
+$app->register(new HttpCacheServiceProvider());
 $app->register(new TwigServiceProvider());
 $app->register(new UrlGeneratorServiceProvider());
 $app->register(new FormServiceProvider());
