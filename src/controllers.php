@@ -1,44 +1,10 @@
 <?php
 
-use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Yaml\Yaml;
-use Silex\Provider\TwigServiceProvider;
-use Silex\Provider\UrlGeneratorServiceProvider;
-use Silex\Provider\TranslationServiceProvider;
-use Silex\Provider\FormServiceProvider;
-use Silex\Provider\ValidatorServiceProvider;
 use Symfony\Component\Validator\Constraints as Assert;
-// Mails
-use Silex\Provider\SwiftmailerServiceProvider;
+use Symfony\Component\Yaml\Yaml;
 
-// Application Object
-$app = new Application();
-
-// REMOVE ON PRODUCTION
-require __DIR__.'/../config/dev.php';
-
-/*============ Register Service Providers ============*/
-$app->register(new Silex\Provider\TwigServiceProvider(), array(
-    'twig.path' => __DIR__.'/../views',
-    'twig.class_path'   => __DIR__.'/vendor/twig/lib',
-    ));
-
-$app->register(new UrlGeneratorServiceProvider());
-$app->register(new FormServiceProvider());
-$app->register(new ValidatorServiceProvider());
-$app->register(new TranslationServiceProvider(), array(
-    'translator.messages' => array(),
-    ));
-
-$app->register(new SwiftmailerServiceProvider());
-/*============ Layout ============*/
-// Aparently is optional
-$app->before(function () use ($app) {
-    $app['twig']->addGlobal('layout', null);
-    $app['twig']->addGlobal('layout', $app['twig']->loadTemplate('layout.twig'));
-});
 
 /*============ Controllers ============*/
 
@@ -267,3 +233,5 @@ return $app['twig']->render('contact.twig',array(
 $app->error(function (\Exception $e) use ($app) {
     return new Response('<h2>Wooops, page not found!</h2>');
 });
+
+return $app;

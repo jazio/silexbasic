@@ -8,9 +8,6 @@
 use Symfony\Component\Debug\ErrorHandler;
 use Symfony\Component\Debug\Debug;
 
-// Include the prod configuration
-require __DIR__.'/prod.php';
-
 // Enable PHP Error level
 error_reporting(E_ALL);
 //ini_set('display_errors',1);
