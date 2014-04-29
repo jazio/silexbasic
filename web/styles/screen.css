@@ -37,13 +37,13 @@ body {
 
 }
 
-#gallery, #about, #footer {
+#about, #footer {
 	background: url(../img/tweed.png) repeat;
 	color: white;
 }
 
 .row {
-	padding: 5em 0;
+	padding: 2em 0;
 	
 }
 
@@ -54,6 +54,16 @@ body {
 
 #gallery img {
 	margin: 0 0 1.5em 0;
+}
+
+.box
+{
+	width: 300px;
+	float:left;
+   margin: 10px;
+   padding: 0;
+   border-radius: 10px 10px 2px 2px;
+
 }
 
 
