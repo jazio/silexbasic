@@ -58,3 +58,79 @@
     
 
 {% endblock %}
+{% block content %}
+<!-- Blocks
+        ================================================== -->
+        <div id="blog" class="row">
+          <div class="container">
+
+        {% if blocks %}    
+        {% for block in blocks %}
+                    <div class="col-md-4">
+                      <div class="panel panel-default">
+                       <div class="panel-body">
+
+                         <h2>{{ block['title'] }}</h2>
+                         <p>{{ block['body'] }}</p>
+                         <p><a class="pull-right" href="">Read more &raquo;</a></p>
+                       </div>
+                     </div> 
+                   </div>
+          {% endfor %}
+        {% else %}
+            <p>No posts found.</p>
+        {% endif %}
+
+    </div>
+  </div>
+  <!-- Gallery
+  ================================================== -->
+
+
+  <div id="gallery" class="row">
+    <div class="container">
+      <h2><span class="glyphicon glyphicon-th-list"></span> Gallery</h2>
+      <div class="col-md-3">
+        <a rel="prettyPhoto" href="img/placeholder.jpg"><img src="img/placeholder.jpg" alt="Carousel slide" width="100%" height="20%"></a>
+        <div class="col-md-4"></div>
+      </div>
+
+      <div class="col-md-3">
+        <a rel="prettyPhoto" href="img/placeholder.jpg"><img src="img/placeholder.jpg" alt="Carousel slide" width="100%" height="20%"></a>
+        <div class="col-md-4"></div>
+      </div>
+
+      <div class="col-md-3">
+        <a rel="prettyPhoto" href="img/placeholder.jpg"><img src="img/placeholder.jpg" alt="Carousel slide" width="100%" height="20%"></a>
+        <div class="col-md-4"></div>
+      </div>
+
+      <div class="col-md-3">
+        <a rel="prettyPhoto" href="img/placeholder.jpg"><img src="img/placeholder.jpg" alt="Carousel slide" width="100%" height="20%"></a>
+        <div class="col-md-4"></div>
+      </div>
+
+
+      <div class="col-md-3">
+        <a hre<a rel="prettyPhoto" href="img/placeholder.jpg"><img src="img/placeholder.jpg" alt="Carousel slide" width="100%" height="20%"></a>
+        <div class="col-md-4"></div>
+      </div>
+
+      <div class="col-md-3">
+        <a rel="prettyPhoto" href="img/placeholder.jpg"><img src="img/placeholder.jpg" alt="Carousel slide" width="100%" height="20%"></a>
+        <div class="col-md-4"></div>
+      </div>
+
+      <div class="col-md-3">
+        <a rel="prettyPhoto" href="img/placeholder.jpg"><img src="img/placeholder.jpg" alt="Carousel slide" width="100%" height="20%"></a>
+        <div class="col-md-4"></div>
+      </div>
+
+      <div class="col-md-3">
+        <a rel="prettyPhoto" href="img/placeholder.jpg"><img src="img/placeholder.jpg" alt="Carousel slide" width="100%" height="20%"></a>
+        <div class="col-md-4"></div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

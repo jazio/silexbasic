@@ -10,8 +10,15 @@ use Symfony\Component\Yaml\Yaml;
 
 // Homepage
 $app->get('/', function () use ($app) {
+    try {
+     $yamlBlocks = file_get_contents(__DIR__.'/../data/blocks.yml');
+     $blocks = Yaml::parse($yamlBlocks);
+    } catch (Exception $e) {
+    return $e;
+}
     return $app['twig']->render('index.twig',array(
     'welcome' => '',
+    'blocks' => $blocks,
     )); 
 })->bind('homepage');
 
@@ -228,10 +235,10 @@ return $app['twig']->render('contact.twig',array(
     ));
 })
 ->bind('contact');
-// Contact
-// Error Handlers
+
+// Error Pages
 $app->error(function (\Exception $e) use ($app) {
-    return new Response('<h2>Wooops, page not found!</h2>');
+    return new Response('<h2>Error on page!</h2>');
 });
 
 return $app;
