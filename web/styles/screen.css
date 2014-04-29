@@ -1,7 +1,10 @@
+@charset "utf-8";
+/* @Version: 1.0 @Date: Apr 27 2014 @Author: Ovi FARCAS */
+
 /* Typo */
 .navbar-brand {
 	font-family: 'Pacifico', cursive;
-	font-size: 120%;
+	font-size: 130%;
 }
 
 body {
@@ -17,7 +20,7 @@ p {
 	line-height: 1.5em;
 }
 
-.glyphicon {font-size: 60%;}
+.glyphicon {font-size: 50%;}
 
 /* Layout */
 

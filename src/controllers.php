@@ -11,7 +11,7 @@ use Symfony\Component\Yaml\Yaml;
 // Homepage
 $app->get('/', function () use ($app) {
     return $app['twig']->render('index.twig',array(
-    'welcome' => 'Welcome to my homepage', // not set yet
+    'welcome' => '',
     )); 
 })->bind('homepage');
 
