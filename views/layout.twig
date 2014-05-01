@@ -4,7 +4,7 @@
   <title>Title Page</title>
   <meta charset="utf-8">
 		<meta name="description" content="{% block description %}Hi, welcome to my site.{% endblock %}">
-
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="assets/ico/favicon.png">
 		<!-- Bootstrap CSS -->
@@ -35,7 +35,7 @@
               </div>
 
               <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav pull-right">
+                <ul class="nav navbar-nav navbar-right">
                   <li {% if 'homepage' == active %}class="active"{% endif %}><a href="{{ path('homepage') }}"><span class="glyphicon glyphicon-home"></span></a></li>
                   <li {% if 'works' == active %}class="active"{% endif %}><a href="{{ path('works') }}">Works</a></li>
                   <li {% if 'blog' == active %}class="active"{% endif %}><a href="{{ path('blog') }}">Blog</a></li>

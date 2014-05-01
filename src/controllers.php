@@ -85,14 +85,14 @@ $app->get('/about', function () use ($app) {
     try {
      $yamlQuestions = file_get_contents(__DIR__.'/../data/data.yml');
      $questions = Yaml::parse($yamlQuestions);
-
- } catch (Exception $e) {
-    return $e;
-}
-return $app['twig']->render('about.twig',array(
+     return $app['twig']->render('about.twig',array(
     'pageTitle' => 'About',
     'questions' => $questions,
     ));
+ } catch (Exception $e) {
+    return $e;
+}
+
 })->bind('about');
 
 // Contact

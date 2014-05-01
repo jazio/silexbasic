@@ -28,6 +28,7 @@ body {
 	margin-top: 50px;
 }
 
+
 .carousel-inner {
 	background:url(../img/tweed.png) repeat;
 	margin-bottom: 15px;
@@ -58,11 +59,9 @@ body {
 
 .box
 {
-	width: 300px;
-	float:left;
-   margin: 10px;
+   float:left;
    padding: 0;
-   border-radius: 10px 10px 2px 2px;
+   border-radius: 10px 10px 10px 10px;
 
 }
 
@@ -94,3 +93,18 @@ Back to top button
 	color: #000;
 }
 
+/* Extra small devices (phones, less than 768px) */
+/* No media query since this is the default in Bootstrap */
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: @screen-sm-min) { ... }
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: @screen-md-min) { 
+
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: @screen-lg-min) {
+
+}

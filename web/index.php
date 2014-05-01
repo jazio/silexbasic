@@ -9,10 +9,12 @@
 require_once __DIR__.'/../vendor/autoload.php';
 
 $app = new Silex\Application();
-
+require __DIR__.'/../src/debug.php';
 require __DIR__.'/../src/boot.php';
 require __DIR__.'/../src/config.php';
-require __DIR__.'/../src/debug.php';
+
+// Enable debug mode
+$app['debug'] = true;
 require __DIR__.'/../src/controllers.php';
 
 $app->run();
