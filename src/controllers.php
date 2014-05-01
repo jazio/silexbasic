@@ -108,17 +108,22 @@ $app->match('/feedback', function (Request $request) use ($app) {
     $form = $app['form.factory']->createBuilder('form', $data)
     ->add('name', 'text', array(
         'constraints' => array(new Assert\NotBlank(), new Assert\Length(array('min' => 10))),
+        'attr' => array('class' => 'form-control input-lg', 'placeholder' => '.input-lg')
         ))
     ->add('email', 'email', array(
         'constraints' => array(new Assert\NotBlank(), new Assert\Email()),
         'label'       => 'A custom label : ',
-        'attr' => array('class' => 'span5', 'placeholder' => 'email constraints')
+        'attr' => array('class' => 'form-control input-lg', 'placeholder' => '.input-lg')
         ))
-    ->add('message', 'textarea')
+    ->add('message', 'textarea', array(
+        'constraints' => array(new Assert\NotBlank()),
+        'label'       => 'A custom label : ',
+        'attr' => array('class' => 'form-control input-lg', 'placeholder' => '.input-lg')
+        ))
     ->getForm();
 
     //$request = $app['request'];
-    $formStatus = 'Please fill up the form 0';
+    $formStatus = 'Please fill up the form';
     $bgFormStatus = '';
     if ($request->isMethod('POST'))
     {
@@ -129,12 +134,12 @@ $app->match('/feedback', function (Request $request) use ($app) {
             if ($form->isValid()) 
             {
                 $data = $form->getData();
-                $bgFormStatus = 'bg-success';
+         $bgFormStatus = "bg-success";
                 $formStatus = 'Form is submitted and valid';
             }
         }
         else {
-         $bgFormStatus = 'bg-info';
+         $bgFormStatus = "bg-info";
          $formStatus = 'Please fill up the form'; 
      }
  }    
@@ -154,12 +159,13 @@ $app->match('/feedback', function (Request $request) use ($app) {
 
 
 // Contact
+// @TODO  $bgFormStatus = "bs-callout bs-callout-warning";
 $app->match('/contact', function (Request $request) use ($app) {
 
     $data = array(
      'name' => 'Your name',
-     'subject' => 'Subject here', 
-     'email' => 'ovidiufarcas@gmail.com',
+     'subject' => 'Topic', 
+     'email' => 'Your e-mail',
      'message' => 'Message',
      );
 
@@ -167,22 +173,24 @@ $app->match('/contact', function (Request $request) use ($app) {
     $form = $app['form.factory']->createBuilder('form', $data)
     ->add('name', 'text', array(
         'constraints' => array(new Assert\NotBlank(), new Assert\Length(array('min' => 10))),
+        'attr' => array('class' => 'form-control input-lg', 'placeholder' => '.input-lg')
         ))
     ->add('email', 'email', array(
         'constraints' => array(new Assert\NotBlank(), new Assert\Email()),
-        'label'       => 'A custom label from email : ',
-        'attr' => array('class' => 'span5', 'placeholder' => 'email constraints')
+        'attr' => array('class' => 'form-control input-lg', 'placeholder' => '.input-lg')
         ))
     ->add('subject', 'text', array(
-        'constraints' => array(new Assert\NotBlank)
+        'constraints' => array(new Assert\NotBlank),
+        'attr' => array('class' => 'form-control input-lg', 'placeholder' => '.input-lg')
         ))
     ->add('message', 'textarea', array(
-        'constraints' => array(new Assert\NotBlank)
+        'constraints' => array(new Assert\NotBlank),
+        'attr' => array('class' => 'form-control input-lg', 'placeholder' => '.input-lg', 'rows' => '20')
         ))
     ->getForm();
 
     $request = $app['request'];
-    $formStatus = 'Please fill up the form 0';
+    $formStatus = 'Please fill up the form:';
     $bgFormStatus = '';
     if ($request->isMethod('POST'))
     {

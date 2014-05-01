@@ -1,10 +1,10 @@
 @charset "utf-8";
-/* @Version: 1.0 @Date: Apr 27 2014 @Author: Ovi FARCAS */
+/* @Version: 1.0 @Date: Apr 30 2014 @Author: Ovi FARCAS */
 
 /* Typo */
 .navbar-brand {
 	font-family: 'Pacifico', cursive;
-	font-size: 130%;
+	font-size: 150%;
 }
 
 body {
@@ -20,7 +20,17 @@ p {
 	line-height: 1.5em;
 }
 
-.glyphicon {font-size: 50%;}
+.glyphicon {font-size: 100%;}
+
+a:link, a:visited
+{
+	color: #00909f;
+	text-decoration: none;
+}
+
+a:hover { color: #9FF !important; }
+
+a img { border: 0px; }
 
 /* Layout */
 
@@ -63,6 +73,14 @@ body {
    padding: 0;
    border-radius: 10px 10px 10px 10px;
 
+}
+
+.content {
+	min-height: 700px;
+}
+
+.form-group label{
+	margin-top: 20px;
 }
 
 

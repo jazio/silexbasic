@@ -14,8 +14,11 @@
   <link rel="stylesheet" href="styles/screen.css">
   <link rel="stylesheet" href="styles/themes/dark/screen.css">
   <link rel="stylesheet" href="styles/prettyPhoto.css" type="text/css" media="screen" title="prettyPhoto main stylesheet" charset="utf-8" />
+    <!-- Custom styles for this template -->
+
 	</head>
 	<body>
+
 		 <!-- Navigation
         ================================================== -->
         {% set active = active|default(null) %}
@@ -52,7 +55,7 @@
           <!-- Pages
         ================================================== -->
 
-        <div class="row">
+        <div class="row content">
           <div class="container">
             <div class="col-md-12">
             {% block content %}{% endblock %}
@@ -76,6 +79,7 @@
     <a href="#top"><span class="glyphicon glyphicon-chevron-up"></span></a>
   </p>
         </div> 
+
 		<!-- jQuery -->
 		<script src="//code.jquery.com/jquery.js"></script>
 		<!-- Bootstrap JavaScript -->
