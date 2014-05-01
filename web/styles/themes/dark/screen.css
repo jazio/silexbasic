@@ -2,17 +2,36 @@
 /* DARK THEME
 -------------------------------------------------------------------------*/
 body, .navbar {
- background-color: black;
- color: grey;
+   background-color: black;
+   color: grey;
 
 }
 .navbar {
-
 	border: none;
 }
 .navbar-nav > .active > a{
     background-color: black !important;
 }
+.nav .active a {
+    color: #00909f !important;
+}
+.nav .open>a, .nav .open>a:hover, .nav .open>a:focus {
+background-color: black !important;
+}
+.navbar-nav>li>.dropdown-menu{
+background-color: black !important;
+font-size: 100%;
+}
+
+.navbar-nav>li>.dropdown-menu li a {
+ color:lighgrey;
+
+}
+
+.navbar-nav>li>.dropdown-menu a:hover{
+background-color: black !important;
+}
+
 .row {
     background-color: #282828; 
 }
@@ -25,4 +44,4 @@ body, .navbar {
 p {
     color: grey;
 }
-.nav .active a {color: #00909f !important;}
+

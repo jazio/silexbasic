@@ -1,93 +1,104 @@
 <!DOCTYPE html>
 <html lang="">
-	<head>
+<head>
   <title>Title Page</title>
   <meta charset="utf-8">
-		<meta name="description" content="{% block description %}Hi, welcome to my site.{% endblock %}">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="assets/ico/favicon.png">
-		<!-- Bootstrap CSS -->
-		<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
-      <link href='http://fonts.googleapis.com/css?family=Carme' rel='stylesheet' type='text/css'>
+  <meta name="description" content="{% block description %}Hi, welcome to my site.{% endblock %}">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="assets/ico/favicon.png">
+  <!-- Bootstrap CSS -->
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
+  <link href='http://fonts.googleapis.com/css?family=Carme' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="styles/screen.css">
   <link rel="stylesheet" href="styles/themes/dark/screen.css">
   <link rel="stylesheet" href="styles/prettyPhoto.css" type="text/css" media="screen" title="prettyPhoto main stylesheet" charset="utf-8" />
-    <!-- Custom styles for this template -->
+  <!-- Custom styles for this template -->
 
-	</head>
-	<body>
+</head>
+<body>
 
 		 <!-- Navigation
-        ================================================== -->
-        {% set active = active|default(null) %}
-        <div class="navbar-wrapper">
-          <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-            <div class="container">
-              <div class="navbar-header">
-                <a class="navbar-brand" href="{{ path('homepage') }}">Your Company</a>
+     ================================================== -->
+     {% set active = active|default(null) %}
+     <div class="navbar-wrapper">
+      <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="{{ path('homepage') }}">Your Company</a>
 
 
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                  <span class="icon-bar"></span>
-                </button>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
 
-              </div>
+          </div>
 
-              <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right">
-                  <li {% if 'homepage' == active %}class="active"{% endif %}><a href="{{ path('homepage') }}"><span class="glyphicon glyphicon-home"></span></a></li>
-                  <li {% if 'works' == active %}class="active"{% endif %}><a href="{{ path('works') }}">Works</a></li>
-                  <li {% if 'blog' == active %}class="active"{% endif %}><a href="{{ path('blog') }}">Blog</a></li>
-                  <li {% if 'about' == active %}class="active"{% endif %}><a href="{{ path('about') }}">About</a></li>
-                  <li {% if 'feedback' == active %}class="active"{% endif %}><a href="{{ path('feedback') }}">Feedback</a></li>
-                  <li {% if 'contact' == active %}class="active"{% endif %}><a href="{{ path('contact') }}">Contact</a></li>
-                </ul>
-              </div>
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li {% if 'homepage' == active %}class="active"{% endif %}><a href="{{ path('homepage') }}"><span class="glyphicon glyphicon-home"></span></a></li>
+              <li class="dropdown" {% if 'works' == active %}class="active"{% endif %}><a class="dropdown-toggle" data-toggle="dropdown" href="{{ path('works') }}">Works<span class="caret"></span></a>
+               <ul class="dropdown-menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li class="divider"></li>
+                  <li class="dropdown-header">Nav header</li>
+                  <li><a href="#">Separated link</a></li>
+                  <li><a href="#">One more separated link</a></li>
+               </ul>
 
-            </div>
-          </nav>
-        </div>
-    {% block carousel %}{% endblock %}
+             </li>
+             <li {% if 'blog' == active %}class="active"{% endif %}><a href="{{ path('blog') }}">Blog</a></li>
+             <li {% if 'about' == active %}class="active"{% endif %}><a href="{{ path('about') }}">About</a></li>
+             <li {% if 'feedback' == active %}class="active"{% endif %}><a href="{{ path('feedback') }}">Feedback</a></li>
+             <li {% if 'contact' == active %}class="active"{% endif %}><a href="{{ path('contact') }}">Contact</a></li>
+           </ul>
+         </div>
+
+       </div>
+     </nav>
+   </div>
+   {% block carousel %}{% endblock %}
           <!-- Pages
-        ================================================== -->
+          ================================================== -->
 
-        <div class="row content">
-          <div class="container">
-            <div class="col-md-12">
-            {% block content %}{% endblock %}
+          <div class="row content">
+            <div class="container">
+              <div class="col-md-12">
+                {% block content %}{% endblock %}
+              </div>
             </div>
           </div>
-        </div>
 
     <!-- Footer
-        ================================================== --> 
-        <div id="footer" class="row">
-         <div class="container">
-           <div class="col-md-12">
-             <footer>
+    ================================================== --> 
+    <div id="footer" class="row">
+     <div class="container">
+       <div class="col-md-12">
+         <footer>
 
-              <p class="pull-right"><a href="#"> Privacy. </a> &middot; <a href="#"> Disclaimer</a>  </p>
-               <p>&copy; 2014 Your Company. &middot; 1265 Charlerois G3K 1P2</p>
-              </footer> 
-            </div>
-          </div>
-            <p id="back-top">
-    <a href="#top"><span class="glyphicon glyphicon-chevron-up"></span></a>
-  </p>
-        </div> 
+          <p class="pull-right"><a href="#"> Privacy. </a> &middot; <a href="#"> Disclaimer</a>  </p>
+          <p>&copy; 2014 Your Company. &middot; 1265 Charlerois G3K 1P2</p>
+        </footer> 
+      </div>
+    </div>
+    <p id="back-top">
+      <a href="#top"><span class="glyphicon glyphicon-chevron-up"></span></a>
+    </p>
+  </div> 
 
-		<!-- jQuery -->
-		<script src="//code.jquery.com/jquery.js"></script>
-		<!-- Bootstrap JavaScript -->
-		<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-            <script type="text/javascript" src="js/jquery.scrollTo.js"></script>
-        <script type="text/javascript" src="js/jquery.localscroll-1.2.7-min.js"></script>
-        
-        <script src="js/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
-        <script type="text/javascript" src="js/scripts.js"></script>
-	</body>
+  <!-- jQuery -->
+  <script src="//code.jquery.com/jquery.js"></script>
+  <!-- Bootstrap JavaScript -->
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/jquery.scrollTo.js"></script>
+  <script type="text/javascript" src="js/jquery.localscroll-1.2.7-min.js"></script>
+
+  <script src="js/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+  <script type="text/javascript" src="js/scripts.js"></script>
+</body>
 </html>
