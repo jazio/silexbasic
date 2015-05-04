@@ -95,7 +95,7 @@ $app->get('/about', function () use ($app) {
 
 })->bind('about');
 
-// Contact
+// Feedback.
 $app->match('/feedback', function (Request $request) use ($app) {
 
     $data = array(
@@ -158,7 +158,7 @@ $app->match('/feedback', function (Request $request) use ($app) {
 
 
 
-// Contact
+// Contact form.
 // @TODO  $bgFormStatus = "bs-callout bs-callout-warning";
 $app->match('/contact', function (Request $request) use ($app) {
 
@@ -220,7 +220,7 @@ $app->match('/contact', function (Request $request) use ($app) {
 
     // @TODO Set headers: From, Reply-To
 
-    // Send the mail
+    // Send the mail.
     $app['mailer']->send($message);
 
     // @TODO remove to render twig, add a flag OK variable
