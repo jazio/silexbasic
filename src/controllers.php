@@ -5,7 +5,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Yaml\Yaml;
 
-//@TODO page with cache 
+//@TODO page with cache
 /*============ Controllers ============*/
 
 // Homepage
@@ -19,7 +19,7 @@ $app->get('/', function () use ($app) {
     return $app['twig']->render('index.twig',array(
     'welcome' => '',
     'blocks' => $blocks,
-    )); 
+    ));
 })->bind('homepage');
 
 // Hello without template
@@ -57,8 +57,8 @@ $blogPosts = array(
 $app->get('/blog', function () use ($blogPosts, $app) {
     return $app['twig']->render('blog.twig', array(
         'posts' => $blogPosts,
-        ));   
-// Optional nameroutes to be used with UrlGenerator Provider 
+        ));
+// Optional nameroutes to be used with UrlGenerator Provider
 })->bind('blog');
 
 // Blog Post Overview with Twig Template
@@ -69,7 +69,7 @@ $app->get('/blog/{id}', function ($id) use ($blogPosts, $app) {
         'date'   => $blogPosts[$id]['date'],
         'body'   => $blogPosts[$id]['body'],
         ));
-    
+
 })->bind('blogpost');
 
 // Works
@@ -128,10 +128,10 @@ $app->match('/feedback', function (Request $request) use ($app) {
     if ($request->isMethod('POST'))
     {
         $form->handleRequest($request);
-        
+
         if ($form->isSubmitted())
         {
-            if ($form->isValid()) 
+            if ($form->isValid())
             {
                 $data = $form->getData();
          $bgFormStatus = "bg-success";
@@ -140,9 +140,9 @@ $app->match('/feedback', function (Request $request) use ($app) {
         }
         else {
          $bgFormStatus = "bg-info";
-         $formStatus = 'Please fill up the form'; 
+         $formStatus = 'Please fill up the form';
      }
- }    
+ }
 
 
  return $app['twig']->render('feedback.twig',array(
@@ -164,7 +164,7 @@ $app->match('/contact', function (Request $request) use ($app) {
 
     $data = array(
      'name' => 'Your name',
-     'subject' => 'Topic', 
+     'subject' => 'Topic',
      'email' => 'Your e-mail',
      'message' => 'Message',
      );
@@ -195,10 +195,10 @@ $app->match('/contact', function (Request $request) use ($app) {
     if ($request->isMethod('POST'))
     {
         $form->handleRequest($request);
-        
+
         if ($form->isSubmitted())
         {
-            if ($form->isValid()) 
+            if ($form->isValid())
             {
 
 
@@ -230,9 +230,9 @@ $app->match('/contact', function (Request $request) use ($app) {
 }
 else {
  $bgFormStatus = 'bg-info';
- $formStatus = 'Please fill up the form'; 
+ $formStatus = 'Please fill up the form';
 }
-}    
+}
 
 
 return $app['twig']->render('contact.twig',array(
@@ -248,5 +248,22 @@ return $app['twig']->render('contact.twig',array(
 $app->error(function (\Exception $e) use ($app) {
     return new Response('<h2>Error on page!</h2>');
 });
+
+
+// Blog Controllers.
+// http://silex.sensiolabs.org/doc/organizing_controllers.html
+// @todo You can split each controller to another file. Or you can group them into a class.
+
+$blog = $app['controllers_factory'];
+$blog->get('/', function () {
+   return 'Blog homepage';
+});
+$app->mount('/blog', $blog);
+
+// Backend
+$backend = $app['controllers_factory'];
+$mustBelogged = TRUE;
+// Middleware to alter the behaviour t different stages of handling a request.
+$backend->before($mustBelogged);
 
 return $app;
