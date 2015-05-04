@@ -256,7 +256,11 @@ $app->error(function (\Exception $e) use ($app) {
 
 $blog = $app['controllers_factory'];
 $blog->get('/', function () {
-   return 'Blog homepage';
+    $posts = $app['db']->fetchAll("SELECT * from posts");
+   return $app['twig']->render('blogposts.twig' , array(
+      'posts' => $posts;
+    ));
+   //return 'Blog homepage';
 });
 $app->mount('/blog', $blog);
 

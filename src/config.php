@@ -4,7 +4,7 @@
 
 //@TODO Form templates
 //@TODO Twig Cache Extentions https://github.com/asm89/twig-cache-extension
-// Twig
+// Twig.
 $app['twig.path'] = __DIR__.'/../views';
 $app['twig.options'] = array(
         'cache'            => isset($app['twig.options.cache']) ? $app['twig.options.cache'] : false,
@@ -17,7 +17,13 @@ $app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
 return $twig;
 }));
 
-// Cache
+// Cache.
 $app['cache.path'] = __DIR__ . '/../cache';
 $app['http_cache.cache_dir'] = $app['cache.path'] . '/http';
 $app['twig.options.cache'] = $app['cache.path'] . '/twig';
+
+// Doctrine Database.
+$app['db.options'] = array(
+    'driver'   => 'pdo_sqlite',
+    'path'     => __DIR__.'/../config/schema.sqlite',
+);

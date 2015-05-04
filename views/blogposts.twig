@@ -1,14 +1,11 @@
 {% extends 'layout.twig' %}
-
 {% block content %}
-<!-- Blog
-        ================================================== -->
         <div id="blog" class="row">
           <div class="container">
             <h2><span class="glyphicon glyphicon-comment"></span> Blog</h2>
-       {% if posts %}    
-{% for post in posts %}
-    {# {{dump(post)}} #}
+           {% if posts %}
+            {% for post in posts %}
+              {# {{dump(post)}} #}
 
             <div class="col-md-4">
               <div class="panel panel-default">
@@ -19,7 +16,7 @@
                  <p>{{ post['body'] }}</p>
                  <p><a class="pull-right" href="{{ app.request.baseUrl }}/blog/{{post['bid']}}">Read more &raquo;</a></p>
                </div>
-             </div> 
+             </div>
            </div>
   {% endfor %}
 {% else %}
